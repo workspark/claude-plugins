@@ -62,9 +62,34 @@ ws engagement surveys list
 ```
 Shows whether you've started, saved a draft, or submitted.
 
+## Never Fabricate Survey Responses
+
+- **Do not invent** survey ratings or comments. Engagement surveys are confidential — fabricated responses corrupt organizational data.
+- If the user is unsure how to answer, discuss the themes and what each question measures, but never suggest specific ratings.
+- The user must provide their own ratings and comments. You may help rephrase or clarify their comment text, but the sentiment and content must be theirs.
+
+## Submission Gate
+
+Surveys have a **draft vs submit** distinction:
+
+| Command | Effect |
+|---------|--------|
+| `save-response-answers` | Saves responses as draft — can be edited later |
+| `submit-response-answers` | **Final submission** — all 15 questions required, no modifications after |
+
+Before executing `submit-response-answers`, you MUST:
+
+1. Present a summary of the user's responses to the user.
+2. Ask: **"This is the final result. Once submitted, responses cannot be changed. Are you happy with your answers? Do you want to submit or leave as a draft?"**
+3. Only submit if the user explicitly confirms.
+
+Saving drafts does not require the gate — only final submission does.
+
 ## Anti-Patterns
 
 - Don't skip comments. Rating scales alone don't tell leaders what to fix or keep.
 - Don't rush through. Thoughtful responses take 5-10 minutes.
 - Don't assume nothing will change. Survey results are reviewed by leadership and People Ops.
 - Don't wait until you're frustrated to respond. Answer authentically whenever it's open.
+- **Don't fabricate responses.** Never invent ratings or comments. Survey data must come from the user.
+- **Don't auto-submit.** Always confirm with the user before `submit-response-answers`. Submissions are final and cannot be changed.

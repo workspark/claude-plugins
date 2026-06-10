@@ -66,11 +66,12 @@ Once a cycle is published, each review moves through its own status lifecycle:
 
 | Action | Command | Description |
 |--------|---------|-------------|
-| Write content | `answer-review` | Fill in review sections and ratings |
-| Submit | `mark-review-ready` | Mark the review as ready |
+| Write content | `answer-review` | Fill in review sections and ratings (saves as draft — status transitions to Started) |
+| Mark ready | `mark-review-ready` | Mark the review as ready for sharing (manager reviews only) |
 | Share | `share-review` | Share the review with the reviewee |
-| Sign | `sign-review` | Reviewee acknowledges/signs |
-| Decline | `decline-review` | Reviewee declines |
+| Sign | `sign-review` | Reviewee acknowledges/signs (manager reviews only) |
+| Decline | `decline-review` | Reviewer declines to complete the review |
+| Cancel | `cancel-review` | Admin/PeopleOps cancels the review |
 
 ### Review status codes
 
@@ -97,6 +98,47 @@ ws reviews answer-review <review-id> \
 ```
 
 Flags: `--accomplishments`, `--strengths`, `--opportunities` (text), `--delivery-rating`, `--behaviour-rating`, `--performance-rating` (1-5).
+
+Running `answer-review` saves your answers and auto-transitions the review from Created (10) to Started (20). This is a draft state — you can update your answers multiple times. The review is **not yet visible** to the reviewee.
+
+### Marking a review ready (manager reviews)
+
+```
+ws reviews mark-review-ready <review-id>
+```
+
+Transitions the review from Started (20) to Ready (30). Only applies to manager reviews. This signals that you have finalized your content and the review can be shared. **This is a final action — use the submission gate (see below).**
+
+### Declining a review
+
+```
+ws reviews decline-review <review-id>
+```
+
+Use when you cannot complete a review (e.g., you don't have enough context or working relationship with the reviewee). The reviewer who accepted the assignment can decline from Created, Started, or Ready status.
+
+## Never Fabricate Review Content
+
+- **Do not invent** accomplishments, strengths, opportunities, or ratings. Reviews are formal performance documents — fabricated content has real consequences.
+- If the user asks for help drafting a review, you may suggest text based on their accomplishments and context, but mark it clearly as a draft.
+- The user must review, edit, and provide the final text before you execute `answer-review`.
+- **Never** run `mark-review-ready`, `share-review`, or `sign-review` without explicit user approval of the final content.
+
+## Submission Gate
+
+The following commands are **final** — they change the review's visibility or state in ways that may not be reversible without admin intervention. Before executing any of them, you MUST:
+
+1. Present the full review content (or a summary of what will change) to the user.
+2. Ask: **"This is the final result. Are you happy with the content? Do you want to submit or leave this as a draft?"**
+3. Only proceed if the user explicitly confirms.
+
+Commands requiring the gate:
+
+| Command | Why it's final |
+|---------|---------------|
+| `mark-review-ready` | Signals content is complete; review can be shared next |
+| `share-review` | Makes review visible to the reviewee |
+| `sign-review` | Reviewee formally acknowledges the review; closes the feedback loop |
 
 ## Monitoring
 
@@ -213,3 +255,5 @@ Maps delivery (x-axis, 1-3) against behaviour (y-axis, 1-3):
 - Don't use manager reviews to deliver surprises — ongoing feedback should mean nothing in a review is new
 - Don't publish a cycle before all reviewees are added and dates are confirmed
 - Don't mark a review ready before running AI feedback
+- **Don't fabricate content.** Never invent accomplishments, strengths, or ratings. All review text must come from the user or CLI data.
+- **Don't auto-submit.** Always present final content to the user and get explicit confirmation before `mark-review-ready`, `share-review`, or `sign-review`.

@@ -71,9 +71,28 @@ ws accomplishments insights <member-id>
 ```
 Shows 12-month heatmap, category distribution, theme analysis (requires 5+ entries).
 
+## Never Fabricate Accomplishment Content
+
+- **Do not invent** accomplishment entries. Accomplishments are evidence of real work and may be used in reviews, promotions, and performance discussions.
+- If the user asks for help drafting an entry, you may suggest text based on context they've shared, but mark it clearly as a draft.
+- The user must review, edit, and provide the final text before you execute `create`.
+- **Never** run `create` with AI-generated content unless the user has explicitly approved the exact text.
+
+## Submission Gate
+
+Accomplishment entries are **final on creation** — there is no draft state. Before executing `create`, you MUST:
+
+1. Present the full entry content (title, content, category, date) to the user.
+2. Ask: **"This is the final result. Are you happy with the content? Do you want to create this entry?"**
+3. Only proceed if the user explicitly confirms.
+
+Updates to existing entries are also immediate but can be revised. Still confirm content changes with the user.
+
 ## Anti-Patterns
 
 - Don't wait until review season to log everything retroactively
 - Don't log task-list items ("Emailed Bob"). Capture meaningful work with context.
 - Don't use "we" when you mean "I". Be specific about your contributions.
 - Don't skip entries because they seem small — a fix that prevented a major outage is as important as shipping a feature
+- **Don't fabricate entries.** Never invent accomplishments. All content must come from the user or real work data.
+- **Don't auto-create.** Always present the full entry and get explicit user confirmation before `create`.

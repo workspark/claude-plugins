@@ -40,3 +40,9 @@ ws tasks list <board-id> --filter status=in_progress --sort -priority
 - Use task descriptions for context: link to relevant specs, PRs, or decisions
 - Archive completed tasks promptly to keep boards clean and focused on active work
 - Tasks on a board should represent units of work, not an exhaustive to-do list — if it takes 5 minutes, just do it
+
+## Never Fabricate
+
+- **Do not invent** tasks or task content. Tasks should reflect real work.
+- If asked to create tasks from meeting notes or project plans, confirm the task list with the user before creating.
+- Confirm task titles and descriptions with the user before executing `create`.

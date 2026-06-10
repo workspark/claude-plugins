@@ -89,6 +89,23 @@ The AI coach suggests objectives based on member role and team context.
 ws okrs cycles get <cycle-id>
 ```
 
+## Never Fabricate OKR Content
+
+- **Do not invent** objectives, key results, descriptions, or check-in notes. OKRs are commitments — fabricated OKRs misrepresent goals and progress.
+- If the user asks for help drafting OKRs, you may suggest objectives and KRs based on their role and team context, but mark them clearly as drafts.
+- The user must review, edit, and provide the final text before you execute `create-okr` or `create-check-in`.
+- **Never** make up key result values (start, target, current) — these must come from the user or existing data.
+
+## Submission Gate
+
+Check-ins are **final on creation** — they update the OKR's confidence level and key result progress immediately. Before executing `create-check-in`, you MUST:
+
+1. Present the confidence level, key result updates, and note to the user.
+2. Ask: **"This is the final result. Are you happy with the content? Do you want to submit this check-in or skip it?"**
+3. Only proceed if the user explicitly confirms.
+
+Creating or updating OKRs and key results also takes effect immediately, but these can be revised later. Still, confirm the content with the user before creating.
+
 ## Anti-Patterns
 
 - Don't use objectives as a task list. If every objective starts with "Do" or "Complete," they're tasks, not outcomes.
@@ -96,3 +113,5 @@ ws okrs cycles get <cycle-id>
 - Don't go more than 7 days without a check-in.
 - Don't game the numbers. Setting KRs too low to look good defeats the purpose.
 - Don't create too many OKRs. 2-3 objectives with 2-4 KRs each is the sweet spot.
+- **Don't fabricate OKR content.** Never invent objectives, key results, or check-in notes. All must come from the user or existing data.
+- **Don't auto-submit check-ins.** Always present the check-in content and get explicit user confirmation before creating.

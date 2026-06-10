@@ -71,6 +71,34 @@ WorkSpark is a performance management platform for work evidence, feedback, goal
 - If the CLI does not expose enough information, say so explicitly.
 - Keep answers grounded, direct, and concise.
 
+### Never Fabricate Content
+
+**Do not invent data.** Never generate or fabricate review answers, accomplishment entries, check-in notes, OKR statements, key result values, or survey responses. Only use data retrieved from the CLI or explicitly provided by the user.
+
+If the user asks for help drafting content (e.g., "help me write my self-review"), you may suggest drafts, but:
+- Mark all AI-generated drafts clearly as suggestions.
+- The user must review, edit, and approve the final text before you execute any write command.
+- Never write content to WorkSpark without explicit user-provided text or explicit user approval of a draft.
+
+### Final Submission Gate
+
+**Always confirm before final actions.** For any command that submits, finalizes, or publishes — as opposed to saving a draft — you MUST:
+
+1. Present the full content that will be submitted to the user.
+2. Ask explicitly: "This is the final result. Are you happy with the content? Do you want to submit or leave this as a draft?"
+3. Only proceed with the submission command if the user explicitly confirms.
+
+Commands that require this gate:
+
+| Domain | Final Actions |
+|--------|---------------|
+| Reviews | `mark-review-ready`, `share-review`, `sign-review` |
+| OKRs | `create-check-in` |
+| Accomplishments | `create` (entries are final on creation) |
+| Engagement Surveys | `submit-response-answers` (as distinct from `save-response-answers`) |
+
+Saving drafts, updating unsubmitted content, and reading data do not require the gate.
+
 ## Universal Grammar
 
 Every domain follows the same structure. Use this to derive commands directly without running `--help` first.
@@ -143,59 +171,12 @@ When a prompt gives a specific name, title, date range, or ID, treat it as the t
 
 ## Enums
 
-### OKR Confidence
+Enum values (statuses, types, confidence levels, rating scales) are documented in the domain reference files. Consult the relevant reference file for the domain you are working in.
 
-| Code | Label |
-|------|-------|
-| 10 | On Track |
-| 20 | At Risk |
-| 30 | Off Track |
-| 40 | Blocked |
-
-Interpret these labels when reading OKRs and check-ins.
-
-### Review Type
-
-| Code | Label |
-|------|-------|
-| 10 | Self |
-| 20 | Manager |
-| 30 | Peer |
-| 40 | Upward |
-
-### Review Status
-
-| Code | Label |
-|------|-------|
-| 10 | Not Started |
-| 20 | Started |
-| 30 | Ready |
-| 50 | Shared |
-| 60 | Signed |
-| 80 | Declined |
-| 90 | Cancelled |
-
-### Cycle Type
-
-| Code | Label |
-|------|-------|
-| 10 | Company-Wide |
-| 20 | Onboarding |
-| 30 | Performance Improvement |
-
-### Cycle Status
-
-| Code | Label |
-|------|-------|
-| 10 | Draft |
-| 20 | Active |
-| 30 | Sharing |
-| 40 | Paused |
-| 50 | Completed |
-| 60 | Cancelled |
-
-To discover field definitions or enum values for any entity, run:
-  ws reference entities <entity>
+For authoritative server-side definitions, run:
+```
+ws reference entities <entity>
+```
 e.g. `ws reference entities reviews.review`.
 
 ## Domain References
@@ -220,6 +201,8 @@ Consult the relevant reference before guiding a user through a domain-specific t
 - If a list command returns `[]`, treat it as an empty result set.
 - After the first syntax error, stop free-form guessing.
 - If you need field definitions or enum values, run `ws reference entities <entity>` (e.g. `reviews.review`). Do not guess enum codes.
+- If asked to generate content (review text, OKRs, accomplishments, check-in notes, survey responses), draft suggestions but mark them as drafts. The user must review and approve before you execute any write command.
+- Before any final/submission action, present the content and ask for explicit user confirmation. Never auto-submit.
 
 ## Answering Style
 

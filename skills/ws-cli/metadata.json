@@ -1,0 +1,6 @@
+{
+  "version": "0.1.0",
+  "organization": "Workspark",
+  "updated": "2026-06-10",
+  "abstract": "CLI skill for the Workspark performance management platform. Teaches agents to install and use the `ws` CLI. Domain best practices are in references/: accomplishments, reviews, okrs, engagement-surveys, and tasks."
+}

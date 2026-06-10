@@ -1,0 +1,3 @@
+# gh CLI auth for the workspark org
+# Create a PAT at https://github.com/settings/tokens?type=beta scoped to workspark org
+# export GH_TOKEN="github_pat_..."

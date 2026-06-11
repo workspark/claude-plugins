@@ -1,107 +1,70 @@
-# Workspark Skills
+# Workspark Plugin Marketplace
 
-Agent skills for the [Workspark](https://workspark.io) performance management platform.
-
-## What is Workspark?
-
-Workspark is a lean, integrated performance management platform for growing companies (30–500 people). It brings together **accomplishment tracking**, **performance reviews**, **engagement surveys**, and **OKR-based goal setting** in one opinionated system built around best practices — no configuration maze, no multi-week implementation.
-
-**Core beliefs:**
-- **Simplicity** — purposeful minimalism. Teams actually use it because it's intuitive.
-- **Opinionated** — built-in best practices. Competencies, review structures, and survey questions are pre-built. Less flexibility, productive immediately.
-- **Integrated** — accomplishments, reviews, surveys, and OKRs connect by design. Performance is a continuous signal, not a periodic event.
-- **Visibility** — continuous accomplishment logging makes work visible when it matters (reviews, 1-on-1s, promotions), reducing recency bias.
-
-## What This Repo Does
-
-This repo serves two distribution channels from the same `skills/` directory:
-
-1. **Claude Cowork / Claude Code plugin** — the repo root is a plugin named `workspark` (manifest in `.claude-plugin/plugin.json`). Package it with `./scripts/package-plugin.sh` (bundles Linux `ws` binaries) and install the resulting `dist/workspark.plugin` in Cowork, or install it directly in Claude Code from the repo/marketplace.
-2. **The [`npx skills`](https://github.com/vercel-labs/skills) ecosystem** — publishes the **workspark** skill. When a user runs:
-
-```
-skills add workspark/claude-plugins
-```
-
-...their AI coding agent learns to install and use the Workspark CLI (`ws`). The skill includes:
-- **CLI bootstrap** — install per OS, authenticate, configure
-- **Universal grammar** — how all `ws` commands work
-- **Domain references** — best practices for accomplishments, reviews, OKRs, surveys, and tasks (installed as reference files)
-
-## Available Skills
-
-| Skill | Description |
-|-------|-------------|
-| [workspark](skills/workspark/) | Workspark CLI — install, auth, grammar, enums, and domain best practices in references/ |
-| [log-accomplishment](skills/log-accomplishment/) | Guided workflow: turn a rough description of work into a quality accomplishment entry |
-| [self-review](skills/self-review/) | Guided workflow: draft an evidence-based self-review from accomplishments and OKR data |
-| [okr-check-in](skills/okr-check-in/) | Guided workflow: update key results, confidence, and notes for an OKR check-in |
-
-The workflow skills depend on the `workspark` skill's references and assume the full plugin is installed.
+A [Claude Cowork / Claude Code](https://claude.ai/cowork) plugin marketplace for the [Workspark](https://workspark.io) performance management platform.
 
 ## Installation
 
-The `npx skills` command has a name conflict with npm's built-in `skills` alias. Use one of these approaches:
+### Claude Cowork / Claude Code
+
+Add this marketplace in the Cowork app or CLI using the repository URL:
+
+```
+https://github.com/workspark/claude-marketplace
+```
+
+### npx skills
 
 ```bash
-# Recommended: install globally, then use directly
 npm install -g skills
-skills add workspark/claude-plugins
-
-# Or use npx with the --package flag
-npx --package=skills skills add workspark/claude-plugins
-
-# List available skills without installing
-skills add workspark/claude-plugins --list
+skills add workspark/claude-marketplace
 ```
 
-### Per-agent installation
+## Available Plugins
 
-```bash
-# Install to specific agents only
-skills add workspark/claude-plugins -a claude-code -a opencode
+### [Workspark](plugins/workspark/)
 
-# Install globally with no prompts
-skills add workspark/claude-plugins -g -y
-```
+Performance management — track accomplishments, run reviews, manage OKRs, and respond to engagement surveys via the `ws` CLI.
 
-### Updating
+**Skills included:**
 
-```bash
-skills update workspark
-```
+| Skill | Description |
+|-------|-------------|
+| [workspark](plugins/workspark/skills/workspark/) | CLI bootstrap, auth, grammar, enums, and domain best practices |
+| [log-accomplishment](plugins/workspark/skills/log-accomplishment/) | Guided workflow: turn a rough description into a quality accomplishment entry |
+| [self-review](plugins/workspark/skills/self-review/) | Guided workflow: draft an evidence-based self-review from accomplishments and OKR data |
+| [okr-check-in](plugins/workspark/skills/okr-check-in/) | Guided workflow: update key results, confidence, and notes for an OKR check-in |
 
 ## Repository Structure
 
 ```
-workspark/claude-plugins/
-├── README.md
+workspark/claude-marketplace/
 ├── .claude-plugin/
-│   └── plugin.json                      # Plugin manifest (Claude Cowork / Claude Code)
-├── skills/
-│   ├── workspark/
-│   │   ├── SKILL.md                     # Bootstrap: install, auth, grammar, enums, recovery
-│   │   ├── metadata.json                # Version tracking (not copied by npx skills)
-│   │   └── references/
-│   │       ├── accomplishments.md       # Entry quality, STAR-Lite, 9 categories
-│   │       ├── reviews.md               # Cycle mgmt, review actions, writing criteria, ratings, nine-box
-│   │       ├── okrs.md                  # Objective/KR rules, value format, confidence, stale detection
-│   │       ├── engagement-surveys.md    # 6 themes, confidentiality, response tips
-│   │       └── tasks.md                 # Board/task management
-│   ├── log-accomplishment/
-│   │   └── SKILL.md                     # Workflow: log a quality accomplishment entry
-│   ├── self-review/
-│   │   └── SKILL.md                     # Workflow: evidence-based self-review draft
-│   └── okr-check-in/
-│       └── SKILL.md                     # Workflow: OKR check-in with confirmation gate
+│   └── marketplace.json              # Marketplace manifest
+├── plugins/
+│   └── workspark/
+│       ├── .claude-plugin/
+│       │   └── plugin.json           # Plugin manifest
+│       ├── skills/
+│       │   ├── workspark/
+│       │   │   ├── SKILL.md
+│       │   │   ├── metadata.json
+│       │   │   └── references/
+│       │   ├── log-accomplishment/
+│       │   ├── self-review/
+│       │   └── okr-check-in/
+│       └── bin/                      # Linux ws binaries (bundled)
+├── scripts/
+│   └── package-plugin.sh            # Build + package plugin
+└── dist/                            # Build output (git-ignored)
 ```
 
 ## Development
 
-### Adding a new reference
+### Building
 
-1. Create a new `.md` file under `skills/workspark/references/`
-2. Add it to the Domain References table in `SKILL.md`
+```bash
+./scripts/package-plugin.sh
+```
 
 ### Testing locally
 

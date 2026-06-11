@@ -14,7 +14,10 @@ Workspark is a lean, integrated performance management platform for growing comp
 
 ## What This Repo Does
 
-This repo publishes the **workspark** skill for the [`npx skills`](https://github.com/vercel-labs/skills) ecosystem. When a user runs:
+This repo serves two distribution channels from the same `skills/` directory:
+
+1. **Claude Cowork / Claude Code plugin** — the repo root is a plugin named `workspark` (manifest in `.claude-plugin/plugin.json`). Package it with `./scripts/package-plugin.sh` (bundles Linux `ws` binaries) and install the resulting `dist/workspark.plugin` in Cowork, or install it directly in Claude Code from the repo/marketplace.
+2. **The [`npx skills`](https://github.com/vercel-labs/skills) ecosystem** — publishes the **workspark** skill. When a user runs:
 
 ```
 skills add workspark/skills
@@ -30,6 +33,11 @@ skills add workspark/skills
 | Skill | Description |
 |-------|-------------|
 | [workspark](skills/workspark/) | Workspark CLI — install, auth, grammar, enums, and domain best practices in references/ |
+| [log-accomplishment](skills/log-accomplishment/) | Guided workflow: turn a rough description of work into a quality accomplishment entry |
+| [self-review](skills/self-review/) | Guided workflow: draft an evidence-based self-review from accomplishments and OKR data |
+| [okr-check-in](skills/okr-check-in/) | Guided workflow: update key results, confidence, and notes for an OKR check-in |
+
+The workflow skills depend on the `workspark` skill's references and assume the full plugin is installed.
 
 ## Installation
 
@@ -68,16 +76,24 @@ skills update workspark
 ```
 workspark/skills/
 ├── README.md
+├── .claude-plugin/
+│   └── plugin.json                      # Plugin manifest (Claude Cowork / Claude Code)
 ├── skills/
-│   └── workspark/
-│       ├── SKILL.md                     # Bootstrap: install, auth, grammar, enums, recovery
-│       ├── metadata.json                # Version tracking (not copied by npx skills)
-│       └── references/
-│           ├── accomplishments.md       # Entry quality, STAR-Lite, 9 categories
-│           ├── reviews.md               # Cycle mgmt, review actions, writing criteria, ratings, nine-box
-│           ├── okrs.md                  # Objective/KR rules, value format, confidence, stale detection
-│           ├── engagement-surveys.md    # 6 themes, confidentiality, response tips
-│           └── tasks.md                 # Board/task management
+│   ├── workspark/
+│   │   ├── SKILL.md                     # Bootstrap: install, auth, grammar, enums, recovery
+│   │   ├── metadata.json                # Version tracking (not copied by npx skills)
+│   │   └── references/
+│   │       ├── accomplishments.md       # Entry quality, STAR-Lite, 9 categories
+│   │       ├── reviews.md               # Cycle mgmt, review actions, writing criteria, ratings, nine-box
+│   │       ├── okrs.md                  # Objective/KR rules, value format, confidence, stale detection
+│   │       ├── engagement-surveys.md    # 6 themes, confidentiality, response tips
+│   │       └── tasks.md                 # Board/task management
+│   ├── log-accomplishment/
+│   │   └── SKILL.md                     # Workflow: log a quality accomplishment entry
+│   ├── self-review/
+│   │   └── SKILL.md                     # Workflow: evidence-based self-review draft
+│   └── okr-check-in/
+│       └── SKILL.md                     # Workflow: OKR check-in with confirmation gate
 ```
 
 ## Development

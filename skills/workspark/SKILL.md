@@ -9,6 +9,24 @@ Use the `ws` CLI to interact with the Workspark performance management platform.
 
 ## Setup (run once)
 
+If `ws --version` already works, skip to authentication.
+
+### Linux (including Claude Cowork sessions): use the bundled binary
+
+This plugin ships Linux binaries in the `bin/` directory at the plugin root (two levels up from this skill's directory). On Linux, install from the bundle instead of downloading:
+
+```
+arch=$(uname -m); case "$arch" in aarch64|arm64) arch=arm64 ;; x86_64) arch=amd64 ;; esac
+mkdir -p ~/.local/bin && cp "<plugin-root>/bin/ws-linux-$arch" ~/.local/bin/ws && chmod +x ~/.local/bin/ws
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+Replace `<plugin-root>` with the plugin's root directory (resolve `../..` relative to this skill's base directory). Copy the binary rather than running it in place — plugin directories may not be executable mounts. If the bundled binary is missing, fall back to the Linux download below.
+
+### Other platforms: download from GitHub Releases
+
+**Note: public binary releases are not yet published.** If a download below returns 404, do not retry other URLs — stop and tell the user that no public `ws` binary exists for this platform yet, and ask them to provide one (e.g., built from source with `make build` in the CLI repo).
+
 1. Detect the host OS and architecture:
    - macOS: `uname -m` (arm64 = Apple Silicon, x86_64 = Intel)
    - Linux: `uname -m` (x86_64 = amd64, aarch64 = arm64)
@@ -47,8 +65,10 @@ Use the `ws` CLI to interact with the Workspark performance management platform.
    [Environment]::SetEnvironmentVariable("PATH", "$env:PATH;$dir", "User")
    ```
 
+### Verify, authenticate, configure
+
 3. Verify: `ws --version`
-4. Authenticate: `ws auth login` — opens browser to sign in
+4. Authenticate: `ws auth login` — opens a browser to sign in. In headless environments (Cowork VM, SSH, containers) the browser cannot open: show the printed login URL to the user so they can open it on their own machine, and keep the command running until it completes.
 5. Configure: `ws config init` — select your organization
 
 ## What WorkSpark Is

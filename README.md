@@ -14,7 +14,7 @@ Workspark is a lean, integrated performance management platform for growing comp
 
 ## What This Repo Does
 
-This repo publishes the **ws-cli** skill for the [`npx skills`](https://github.com/vercel-labs/skills) ecosystem. When a user runs:
+This repo publishes the **workspark** skill for the [`npx skills`](https://github.com/vercel-labs/skills) ecosystem. When a user runs:
 
 ```
 skills add workspark/skills
@@ -29,7 +29,7 @@ skills add workspark/skills
 
 | Skill | Description |
 |-------|-------------|
-| [ws-cli](skills/ws-cli/) | Workspark CLI — install, auth, grammar, enums, and domain best practices in references/ |
+| [workspark](skills/workspark/) | Workspark CLI — install, auth, grammar, enums, and domain best practices in references/ |
 
 ## Installation
 
@@ -60,7 +60,7 @@ skills add workspark/skills -g -y
 ### Updating
 
 ```bash
-skills update ws-cli
+skills update workspark
 ```
 
 ## Repository Structure
@@ -69,7 +69,7 @@ skills update ws-cli
 workspark/skills/
 ├── README.md
 ├── skills/
-│   └── ws-cli/
+│   └── workspark/
 │       ├── SKILL.md                     # Bootstrap: install, auth, grammar, enums, recovery
 │       ├── metadata.json                # Version tracking (not copied by npx skills)
 │       └── references/
@@ -84,14 +84,14 @@ workspark/skills/
 
 ### Adding a new reference
 
-1. Create a new `.md` file under `skills/ws-cli/references/`
+1. Create a new `.md` file under `skills/workspark/references/`
 2. Add it to the Domain References table in `SKILL.md`
 
 ### Testing locally
 
 ```bash
 skills add /path/to/local/repo --list
-skills add /path/to/local/repo --skill ws-cli
+skills add /path/to/local/repo --skill workspark
 ```
 
 ## License

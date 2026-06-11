@@ -1,4 +1,4 @@
-# ws-cli Skill
+# workspark Skill
 
 Teaches AI coding agents to use the `ws` CLI for the Workspark performance management platform.
 

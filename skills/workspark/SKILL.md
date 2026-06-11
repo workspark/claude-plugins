@@ -1,5 +1,5 @@
 ---
-name: ws-cli
+name: workspark
 description: Workspark performance management — reviews, OKRs, tasks, accomplishments, engagement surveys
 ---
 

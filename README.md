@@ -20,7 +20,7 @@ This repo serves two distribution channels from the same `skills/` directory:
 2. **The [`npx skills`](https://github.com/vercel-labs/skills) ecosystem** — publishes the **workspark** skill. When a user runs:
 
 ```
-skills add workspark/skills
+skills add workspark/claude-plugins
 ```
 
 ...their AI coding agent learns to install and use the Workspark CLI (`ws`). The skill includes:
@@ -46,23 +46,23 @@ The `npx skills` command has a name conflict with npm's built-in `skills` alias.
 ```bash
 # Recommended: install globally, then use directly
 npm install -g skills
-skills add workspark/skills
+skills add workspark/claude-plugins
 
 # Or use npx with the --package flag
-npx --package=skills skills add workspark/skills
+npx --package=skills skills add workspark/claude-plugins
 
 # List available skills without installing
-skills add workspark/skills --list
+skills add workspark/claude-plugins --list
 ```
 
 ### Per-agent installation
 
 ```bash
 # Install to specific agents only
-skills add workspark/skills -a claude-code -a opencode
+skills add workspark/claude-plugins -a claude-code -a opencode
 
 # Install globally with no prompts
-skills add workspark/skills -g -y
+skills add workspark/claude-plugins -g -y
 ```
 
 ### Updating
@@ -74,7 +74,7 @@ skills update workspark
 ## Repository Structure
 
 ```
-workspark/skills/
+workspark/claude-plugins/
 ├── README.md
 ├── .claude-plugin/
 │   └── plugin.json                      # Plugin manifest (Claude Cowork / Claude Code)

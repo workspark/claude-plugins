@@ -46,19 +46,17 @@ workspark/claude-marketplace/
 │       │       ├── SKILL.md
 │       │       ├── metadata.json
 │       │       └── references/
-│       └── bin/                      # Linux ws binaries (bundled)
-├── scripts/
-│   └── package-plugin.sh            # Build + package plugin
-└── dist/                            # Build output (git-ignored)
+│       └── bin/                      # Linux ws binaries (committed)
 ```
 
 ## Development
 
-### Building
+### Binaries
 
-```bash
-./scripts/package-plugin.sh
-```
+The Linux `ws` binaries in `plugins/workspark/bin/` are built by the Workspark
+CLI's own build tooling and committed here — this repository does not build
+them. To refresh them, run the CLI's marketplace build step (which writes
+straight into `plugins/workspark/bin/`), then commit the result.
 
 ### Testing locally
 

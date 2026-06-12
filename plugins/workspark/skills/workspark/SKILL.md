@@ -30,8 +30,34 @@ Copy the binary rather than running it in place — plugin directories may not b
 ### Verify, authenticate, configure
 
 1. Verify: `ws --version`
-2. Authenticate: `ws auth login` — opens a browser to sign in. In headless environments (Cowork VM, SSH, containers) the browser cannot open: show the printed login URL to the user so they can open it on their own machine, and keep the command running until it completes.
+2. Authenticate (see below)
 3. Configure: `ws config init` — select your organization
+
+### Authenticate
+
+`ws auth login` opens a browser, then polls until you approve and complete the sign-in. Pick the flow that matches the environment:
+
+**Interactive terminal (local machine):**
+
+```
+ws auth login
+```
+
+It opens the browser and waits until you finish.
+
+**Claude Cowork / headless (Cowork VM, SSH, containers):** the browser cannot open locally, and a single blocking command does not work here — output is only visible once the process exits, which would tear down the wait. Split the login into two commands:
+
+```
+ws auth login --persist    # prints the sign-in URL and exits immediately
+```
+
+Show the printed URL to the user and ask them to open it on their own machine and approve the login. Once they confirm they have approved, finish:
+
+```
+ws auth login --resume     # completes the sign-in using the saved state
+```
+
+`--persist` saves the in-flight login (including its PKCE verifier) to the config directory; `--resume` reuses it, so you do not pass the provider or URL again. The pending state expires after a few minutes — if `--resume` reports it expired, start again with `--persist`.
 
 ## What WorkSpark Is
 

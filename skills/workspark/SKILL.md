@@ -11,65 +11,27 @@ Use the `ws` CLI to interact with the Workspark performance management platform.
 
 If `ws --version` already works, skip to authentication.
 
-### Linux (including Claude Cowork sessions): use the bundled binary
+### Install from the bundled binaries
 
-This plugin ships Linux binaries in the `bin/` directory at the plugin root (two levels up from this skill's directory). On Linux, install from the bundle instead of downloading:
+This plugin ships Linux binaries in the `bin/` directory at the plugin root. Locate the plugin root via the `${CLAUDE_PLUGIN_ROOT}` environment variable; if it is unset, resolve `../..` relative to this skill's directory.
+
+On Linux (including Claude Cowork sessions):
 
 ```
 arch=$(uname -m); case "$arch" in aarch64|arm64) arch=arm64 ;; x86_64) arch=amd64 ;; esac
-mkdir -p ~/.local/bin && cp "<plugin-root>/bin/ws-linux-$arch" ~/.local/bin/ws && chmod +x ~/.local/bin/ws
+mkdir -p ~/.local/bin && cp "${CLAUDE_PLUGIN_ROOT}/bin/ws-linux-$arch" ~/.local/bin/ws && chmod +x ~/.local/bin/ws
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-Replace `<plugin-root>` with the plugin's root directory (resolve `../..` relative to this skill's base directory). Copy the binary rather than running it in place — plugin directories may not be executable mounts. If the bundled binary is missing, fall back to the Linux download below.
+Copy the binary rather than running it in place — plugin directories may not be executable mounts.
 
-### Other platforms: download from GitHub Releases
-
-**Note: public binary releases are not yet published.** If a download below returns 404, do not retry other URLs — stop and tell the user that no public `ws` binary exists for this platform yet, and ask them to provide one (e.g., built from source with `make build` in the CLI repo).
-
-1. Detect the host OS and architecture:
-   - macOS: `uname -m` (arm64 = Apple Silicon, x86_64 = Intel)
-   - Linux: `uname -m` (x86_64 = amd64, aarch64 = arm64)
-   - Windows: `[Environment]::Is64BitOperatingSystem`
-
-2. Download the binary from GitHub Releases:
-
-   **macOS Apple Silicon:**
-   ```
-   curl -sSLO "https://github.com/workspark/cli/releases/latest/download/ws-darwin-arm64" && \
-     mv ws-darwin-arm64 /usr/local/bin/ws && chmod +x /usr/local/bin/ws
-   ```
-
-   **macOS Intel:**
-   ```
-   curl -sSLO "https://github.com/workspark/cli/releases/latest/download/ws-darwin-amd64" && \
-     mv ws-darwin-amd64 /usr/local/bin/ws && chmod +x /usr/local/bin/ws
-   ```
-
-   **Linux x86:**
-   ```
-   curl -sSLO "https://github.com/workspark/cli/releases/latest/download/ws-linux-amd64" && \
-     mv ws-linux-amd64 /usr/local/bin/ws && chmod +x /usr/local/bin/ws
-   ```
-
-   **Linux ARM:**
-   ```
-   curl -sSLO "https://github.com/workspark/cli/releases/latest/download/ws-linux-arm64" && \
-     mv ws-linux-arm64 /usr/local/bin/ws && chmod +x /usr/local/bin/ws
-   ```
-
-   **Windows (PowerShell):**
-   ```powershell
-   $dir = "$env:LOCALAPPDATA\workspark"; mkdir $dir -Force | Out-Null
-   Invoke-WebRequest "https://github.com/workspark/cli/releases/latest/download/ws-windows-amd64.exe" -OutFile "$dir\ws.exe"
-   [Environment]::SetEnvironmentVariable("PATH", "$env:PATH;$dir", "User")
-   ```
+**Other platforms:** the plugin does not bundle binaries for macOS or Windows, and there are no public download URLs. Do not guess or fetch URLs — stop and tell the user that no `ws` binary ships for this platform, and ask them to provide one (e.g., built from source with `make build` in the CLI repo) and place it on their `PATH` as `ws`.
 
 ### Verify, authenticate, configure
 
-3. Verify: `ws --version`
-4. Authenticate: `ws auth login` — opens a browser to sign in. In headless environments (Cowork VM, SSH, containers) the browser cannot open: show the printed login URL to the user so they can open it on their own machine, and keep the command running until it completes.
-5. Configure: `ws config init` — select your organization
+1. Verify: `ws --version`
+2. Authenticate: `ws auth login` — opens a browser to sign in. In headless environments (Cowork VM, SSH, containers) the browser cannot open: show the printed login URL to the user so they can open it on their own machine, and keep the command running until it completes.
+3. Configure: `ws config init` — select your organization
 
 ## What WorkSpark Is
 

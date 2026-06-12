@@ -1,6 +1,6 @@
 {
   "name": "workspark",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "WorkSpark performance management — track accomplishments, run reviews, manage OKRs, and respond to engagement surveys via the ws CLI.",
   "author": {
     "name": "Workspark"

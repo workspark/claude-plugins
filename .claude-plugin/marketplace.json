@@ -1,5 +1,6 @@
 {
   "name": "workspark-marketplace",
+  "version": "0.2.2",
   "description": "Workspark plugins for Claude Code and Claude Cowork",
   "owner": {
     "name": "Workspark"
@@ -7,6 +8,7 @@
   "plugins": [
     {
       "name": "workspark",
+      "version": "0.2.2",
       "displayName": "Workspark",
       "source": "./plugins/workspark",
       "description": "Performance management — track accomplishments, run reviews, manage OKRs, and respond to engagement surveys via the ws CLI.",

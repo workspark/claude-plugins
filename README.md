@@ -29,10 +29,7 @@ Performance management — track accomplishments, run reviews, manage OKRs, and 
 
 | Skill | Description |
 |-------|-------------|
-| [workspark](plugins/workspark/skills/workspark/) | CLI bootstrap, auth, grammar, enums, and domain best practices |
-| [log-accomplishment](plugins/workspark/skills/log-accomplishment/) | Guided workflow: turn a rough description into a quality accomplishment entry |
-| [self-review](plugins/workspark/skills/self-review/) | Guided workflow: draft an evidence-based self-review from accomplishments and OKR data |
-| [okr-check-in](plugins/workspark/skills/okr-check-in/) | Guided workflow: update key results, confidence, and notes for an OKR check-in |
+| [workspark](plugins/workspark/skills/workspark/) | CLI bootstrap, auth, grammar, enums, and domain best practices in `references/` (loaded only when needed) |
 
 ## Repository Structure
 
@@ -45,13 +42,10 @@ workspark/claude-marketplace/
 │       ├── .claude-plugin/
 │       │   └── plugin.json           # Plugin manifest
 │       ├── skills/
-│       │   ├── workspark/
-│       │   │   ├── SKILL.md
-│       │   │   ├── metadata.json
-│       │   │   └── references/
-│       │   ├── log-accomplishment/
-│       │   ├── self-review/
-│       │   └── okr-check-in/
+│       │   └── workspark/
+│       │       ├── SKILL.md
+│       │       ├── metadata.json
+│       │       └── references/
 │       └── bin/                      # Linux ws binaries (bundled)
 ├── scripts/
 │   └── package-plugin.sh            # Build + package plugin
@@ -72,6 +66,8 @@ workspark/claude-marketplace/
 skills add /path/to/local/repo --list
 skills add /path/to/local/repo --skill workspark
 ```
+
+Keep the skill content in sync with [workspark/skills](https://github.com/workspark/skills) — the only intended differences are the Setup section (here it installs from the bundled binaries instead of downloading) and the frontmatter description (here it carries extra trigger phrases, since this is the plugin's only skill).
 
 ## License
 

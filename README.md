@@ -47,7 +47,7 @@ Install directly from the repo/marketplace, or point Claude Code at a local chec
 ## Repository Structure
 
 ```
-workspark/claude-plugins/
+workspark/claude-marketplace/
 ├── README.md
 ├── .claude-plugin/
 │   └── plugin.json                      # Plugin manifest (Claude Cowork / Claude Code)

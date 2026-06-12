@@ -1,0 +1,25 @@
+{
+  "name": "workspark-marketplace",
+  "description": "Workspark plugins for Claude Code and Claude Cowork",
+  "owner": {
+    "name": "Workspark"
+  },
+  "plugins": [
+    {
+      "name": "workspark",
+      "displayName": "Workspark",
+      "source": "./plugins/workspark",
+      "description": "Performance management — track accomplishments, run reviews, manage OKRs, and respond to engagement surveys via the ws CLI.",
+      "category": "productivity",
+      "homepage": "https://workspark.io",
+      "repository": "https://github.com/workspark/claude-marketplace",
+      "keywords": [
+        "performance-management",
+        "accomplishments",
+        "reviews",
+        "okrs",
+        "engagement-surveys"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "workspark",
+  "version": "0.1.0",
+  "description": "WorkSpark performance management — track accomplishments, run reviews, manage OKRs, and respond to engagement surveys via the ws CLI.",
+  "author": {
+    "name": "Workspark"
+  },
+  "homepage": "https://workspark.io",
+  "repository": "https://github.com/workspark/claude-marketplace",
+  "keywords": [
+    "performance-management",
+    "accomplishments",
+    "reviews",
+    "okrs",
+    "engagement-surveys"
+  ]
+}

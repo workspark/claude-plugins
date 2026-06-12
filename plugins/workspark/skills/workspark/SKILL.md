@@ -1,6 +1,6 @@
 ---
 name: workspark
-description: Workspark performance management — reviews, OKRs, tasks, accomplishments, engagement surveys
+description: Workspark performance management — reviews, OKRs, tasks, accomplishments, engagement surveys. Use when the user wants to log an accomplishment or a win ("log what I did today", "record this win"), write or prep a self-review ("help me write my self-review", "my review is due"), check in on OKRs ("update my key results", "my OKRs are stale"), respond to engagement surveys, or manage tasks in Workspark.
 ---
 
 # Workspark CLI
